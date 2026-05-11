@@ -100,3 +100,121 @@ class Dijkstra {
             System.out.print(d + " ");
     }
 }
+
+**********************************************************************************import java.util.*;
+
+class Job {
+    char id;
+    int deadline, profit;
+
+    Job(char id, int deadline, int profit) {
+        this.id = id;
+        this.deadline = deadline;
+        this.profit = profit;
+    }
+}
+
+class JobScheduling {
+    public static void main(String args[]) {
+
+        Job jobs[] = {
+            new Job('A', 2, 100),
+            new Job('B', 1, 19),
+            new Job('C', 2, 27),
+            new Job('D', 1, 25),
+            new Job('E', 3, 15)
+        };
+
+        Arrays.sort(jobs, (a, b) -> b.profit - a.profit);
+
+        int result[] = new int[3];
+        boolean slot[] = new boolean[3];
+
+        for(int i = 0; i < jobs.length; i++) {
+
+            for(int j = Math.min(3, jobs[i].deadline) - 1; j >= 0; j--) {
+
+                if(slot[j] == false) {
+                    result[j] = i;
+                    slot[j] = true;
+                    break;
+                }
+            }
+        }
+
+        System.out.println("Selected Jobs:");
+
+        for(int i = 0; i < 3; i++) {
+            if(slot[i])
+                System.out.print(jobs[result[i]].id + " ");
+        }
+    }
+            }************************************************************************import java.util.*;
+
+class Edge implements Comparable<Edge> {
+    int src, dest, weight;
+
+    Edge(int s, int d, int w) {
+        src = s;
+        dest = d;
+        weight = w;
+    }
+
+    public int compareTo(Edge e) {
+        return this.weight - e.weight;
+    }
+}
+
+class Kruskal {
+
+    static int parent[] = new int[10];
+
+    static int find(int i) {
+        while(parent[i] != i)
+            i = parent[i];
+        return i;
+    }
+
+    static void union(int a, int b) {
+        int x = find(a);
+        int y = find(b);
+        parent[x] = y;
+    }
+
+    public static void main(String args[]) {
+
+        int vertices = 4;
+
+        Edge edges[] = {
+            new Edge(0, 1, 10),
+            new Edge(0, 2, 6),
+            new Edge(0, 3, 5),
+            new Edge(1, 3, 15),
+            new Edge(2, 3, 4)
+        };
+
+        Arrays.sort(edges);
+
+        for(int i = 0; i < vertices; i++)
+            parent[i] = i;
+
+        System.out.println("Edges in MST:");
+
+        int count = 0;
+
+        for(int i = 0; i < edges.length && count < vertices - 1; i++) {
+
+            int u = edges[i].src;
+            int v = edges[i].dest;
+
+            int x = find(u);
+            int y = find(v);
+
+            if(x != y) {
+                System.out.println(u + " - " + v + " : " + edges[i].weight);
+                union(x, y);
+                count++;
+            }
+        }
+    }
+}
