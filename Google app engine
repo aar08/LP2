@@ -1,0 +1,12 @@
+Sudo apt install python3
+Sudo apt install curl
+Sudo apt install git
+Curl http://sdk. Cloud. Google. Com | bash
+exec -l $SHELL
+gcloud --version
+gcloud init
+git clone https://github.com/HS285/lp.git
+ls
+cd lp
+ls
+python3 file.py
